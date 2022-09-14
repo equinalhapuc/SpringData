@@ -2,6 +2,7 @@ package br.com.alura.spring.data.orm;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,6 +30,18 @@ public class Funcionario {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cargo_id", nullable = false)
 	private Cargo cargo;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "funcionario_unidade", joinColumns = {@JoinColumn(name = "fk_funcionario")}, inverseJoinColumns = {@JoinColumn(name = "fk_unidade")})
+	private List<UnidadeDeTrabalho> unidadeTrabalhos;
+
+	public List<UnidadeDeTrabalho> getUnidadeTrabalhos() {
+		return unidadeTrabalhos;
+	}
+
+	public void setUnidadeTrabalhos(List<UnidadeDeTrabalho> unidadeTrabalhos) {
+		this.unidadeTrabalhos = unidadeTrabalhos;
+	}
 
 	public Funcionario(String nome, String cpf, BigDecimal salario, LocalDate dataContratacao, Cargo cargo) {
 		this.nome = nome;

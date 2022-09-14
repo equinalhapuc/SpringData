@@ -8,17 +8,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.alura.spring.data.service.CrudCargoService;
 import br.com.alura.spring.data.service.CrudFuncionarioService;
+import br.com.alura.spring.data.service.CrudUnidadeService;
 
 @SpringBootApplication
 public class SpringDataApplication implements CommandLineRunner {
 
 	private final CrudCargoService cargoService;
 	private final CrudFuncionarioService funcionarioService;
+	private final CrudUnidadeService unidadeService;
 	private boolean system = true;
 
-	public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService) {
+	public SpringDataApplication(CrudCargoService cargoService, CrudFuncionarioService funcionarioService, CrudUnidadeService unidadeService) {
 		this.cargoService = cargoService;
 		this.funcionarioService = funcionarioService;
+		this.unidadeService = unidadeService;
 	}
 
 	public static void main(String[] args) {
@@ -44,7 +47,7 @@ public class SpringDataApplication implements CommandLineRunner {
 				cargoService.inicial(scanner);
 				break;
 			case 2:
-				//unidadeTrabalhoService.inicial(scanner);
+				unidadeService.inicial(scanner);
 				break;
 			case 3:
 				funcionarioService.inicial(scanner);

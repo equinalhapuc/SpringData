@@ -2,24 +2,30 @@ package br.com.alura.spring.data.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
 import br.com.alura.spring.data.orm.Cargo;
 import br.com.alura.spring.data.orm.Funcionario;
+import br.com.alura.spring.data.orm.UnidadeDeTrabalho;
 import br.com.alura.spring.data.repository.CargoRepository;
 import br.com.alura.spring.data.repository.FuncionarioRepository;
+import br.com.alura.spring.data.repository.UnidadeRepository;
 
 @Service
 public class CrudFuncionarioService {
 	private final FuncionarioRepository funcionarioRepository;
 	private final CargoRepository cargoRepository;
+	private final UnidadeRepository unidadeRepository;
 	private boolean system = true;
 
-	public CrudFuncionarioService(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository) {
+	public CrudFuncionarioService(FuncionarioRepository funcionarioRepository, CargoRepository cargoRepository, UnidadeRepository unidadeRepository) {
 		this.funcionarioRepository = funcionarioRepository;
 		this.cargoRepository = cargoRepository;
+		this.unidadeRepository = unidadeRepository;
 	}
 	
 	public void inicial(Scanner scanner) {
@@ -85,10 +91,26 @@ public class CrudFuncionarioService {
 		System.out.println("Id do cargo:");
 		Integer idCargo = scanner.nextInt();
 		Cargo cargo = cargoRepository.findById(idCargo).get();
+		unidadeRepository.findAll().forEach(unidade -> System.out.println(unidade));
+		List<UnidadeDeTrabalho> unidades = new ArrayList<UnidadeDeTrabalho>();
 		
-		Funcionario funcionario = new Funcionario(idFuncionario, nome, cpf, salario, dataContratacao, cargo);
+		boolean continua = true;
+		while(continua) {
+			System.out.println("Digite o Id de uma uniade ou 0 para sair");
+			Integer idUnidade = scanner.nextInt();
+			if(idUnidade > 0) {
+				UnidadeDeTrabalho unidade = unidadeRepository.findById(idUnidade).get();
+				unidades.add(unidade);
+			}
+			else {
+				continua = false;
+			}
+		}
 		
+		Funcionario funcionario = new Funcionario(nome, cpf, salario, dataContratacao, cargo);
+		funcionario.setUnidadeTrabalhos(unidades);
 		funcionarioRepository.save(funcionario);
+		System.out.println("Funcionario salvo com sucesso!");
 		
 	}
 
@@ -106,9 +128,25 @@ public class CrudFuncionarioService {
 		Integer idCargo = scanner.nextInt();
 		Cargo cargo = cargoRepository.findById(idCargo).get();
 		
+		unidadeRepository.findAll().forEach(unidade -> System.out.println(unidade));
+		List<UnidadeDeTrabalho> unidades = new ArrayList<UnidadeDeTrabalho>();
+		
+		boolean continua = true;
+		while(continua) {
+			System.out.println("Digite o Id de uma uniade ou 0 para sair");
+			Integer idUnidade = scanner.nextInt();
+			if(idUnidade > 0) {
+				UnidadeDeTrabalho unidade = unidadeRepository.findById(idUnidade).get();
+				unidades.add(unidade);
+			}
+			else {
+				continua = false;
+			}
+		}
+		
 		Funcionario funcionario = new Funcionario(nome, cpf, salario, dataContratacao, cargo);
-		
+		funcionario.setUnidadeTrabalhos(unidades);
 		funcionarioRepository.save(funcionario);
-		
+		System.out.println("Funcionario salvo com sucesso!");
 	}
 }

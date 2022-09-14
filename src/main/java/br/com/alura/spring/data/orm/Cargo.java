@@ -1,9 +1,13 @@
 package br.com.alura.spring.data.orm;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,6 +19,15 @@ public class Cargo {
 	private Integer id;
 	private String descricao;
 	
+	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+	private List<Funcionario> funcionario;
+	
+	public List<Funcionario> getFuncionario() {
+		return funcionario;
+	}
+	public void setFuncionario(List<Funcionario> funcionario) {
+		this.funcionario = funcionario;
+	}
 	public Integer getId() {
 		return id;
 	}
