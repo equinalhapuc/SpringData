@@ -22,6 +22,9 @@ public class Cargo {
 	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
 	private List<Funcionario> funcionario;
 	
+	public Cargo() {
+		super();
+	}
 	public List<Funcionario> getFuncionario() {
 		return funcionario;
 	}

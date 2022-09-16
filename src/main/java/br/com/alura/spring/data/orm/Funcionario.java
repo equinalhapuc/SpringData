@@ -27,7 +27,7 @@ public class Funcionario {
 	private BigDecimal salario;
 	private LocalDate dataContratacao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cargo_id", nullable = false)
 	private Cargo cargo;
 	

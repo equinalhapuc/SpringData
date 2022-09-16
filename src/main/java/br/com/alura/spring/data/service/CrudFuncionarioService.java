@@ -109,6 +109,7 @@ public class CrudFuncionarioService {
 		
 		Funcionario funcionario = new Funcionario(nome, cpf, salario, dataContratacao, cargo);
 		funcionario.setUnidadeTrabalhos(unidades);
+		funcionario.setId(idFuncionario);
 		funcionarioRepository.save(funcionario);
 		System.out.println("Funcionario salvo com sucesso!");
 		
