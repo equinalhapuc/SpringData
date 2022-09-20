@@ -23,7 +23,7 @@ public class Funcionario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private String CPF;
+	private String cpf;
 	private BigDecimal salario;
 	private LocalDate dataContratacao;
 
@@ -45,7 +45,7 @@ public class Funcionario {
 
 	public Funcionario(String nome, String cpf, BigDecimal salario, LocalDate dataContratacao, Cargo cargo) {
 		this.nome = nome;
-		this.CPF = cpf;
+		this.cpf = cpf;
 		this.salario = salario;
 		this.dataContratacao = dataContratacao;
 		this.cargo = cargo;
@@ -54,7 +54,7 @@ public class Funcionario {
 	public Funcionario(Integer idFuncionario, String nome, String cpf, BigDecimal salario, LocalDate dataContratacao,
 			Cargo cargo) {
 		this.nome = nome;
-		this.CPF = cpf;
+		this.cpf = cpf;
 		this.salario = salario;
 		this.dataContratacao = dataContratacao;
 		this.cargo = cargo;
@@ -83,11 +83,11 @@ public class Funcionario {
 	}
 
 	public String getCPF() {
-		return CPF;
+		return cpf;
 	}
 
 	public void setCPF(String cPF) {
-		CPF = cPF;
+		cpf = cPF;
 	}
 
 	public BigDecimal getSalario() {
@@ -116,7 +116,7 @@ public class Funcionario {
 
 	@Override
 	public String toString() {
-		return "Funcionario [id=" + id + ", nome=" + nome + ", CPF=" + CPF + ", salario=" + salario
+		return "Funcionario [id=" + id + ", nome=" + nome + ", CPF=" + cpf + ", salario=" + salario
 				+ ", dataContratacao=" + dataContratacao + ", cargo=" + cargo + "]";
 	}
 
